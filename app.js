@@ -19,10 +19,10 @@ app.use(express.json());
 
 // mysql
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'MySQLKey.01',
-    database: 'PhonesDataset',
+    host: 'us-cdbr-east-04.cleardb.com',
+    user: 'bf270f78f2e78b',
+    password: '959345ed',
+    database: 'heroku_56d2737ac5ee3be',
 }); 
 
 // Route
