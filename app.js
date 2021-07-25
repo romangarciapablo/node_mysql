@@ -84,6 +84,20 @@ app.post('/api/cart', (req, res) => {
 app.get('/api/cart/:id', (req, res) => {
     const { id } = req.params;
 
+    const sql = "select count(*) as numberCartItems from cart where user_id=" + id;
+    connection.query(sql, (error, result)=>{
+        if (error) throw error;
+        if (result.length > 0){
+            res.json(result);
+        } else {
+            res.send('None results')
+        }
+    })
+})
+
+app.get('/api/user/:id', (req, res) => {
+    const { id } = req.params;
+
     const sql = "select p.*, pc.image_url, c.color, s.storage from cart " +
     "left join phones p on p.id=cart.phone_id " +
     "left join colors c on cart.color_id=c.id " +
