@@ -32,7 +32,7 @@ app.get('/api', (req, res) => {
 
 // all phones
 app.get('/api/product', (req, res) => {
-    const sql = "select p.*, pc.image_url, c.id as color_id, c.color as color_name, s.storage, s.id as storage_id from phones p " +
+    const sql = "select p.*, pc.image_url, c.id as color_id, ps.price, ps.ram, c.color as color_name, s.storage, s.id as storage_id from phones p " +
     "left join phone_color pc on p.id=pc.phone_id " +
     "left join colors c on pc.color_id=c.id " +
     "left join phone_storage ps on p.id=ps.phone_id " +
@@ -49,7 +49,7 @@ app.get('/api/product', (req, res) => {
 app.get('/api/product/:id', (req, res) => {
     const { id } = req.params;
 
-    const sql = "select p.*, pc.image_url, c.color, c.id as color_id, c.color as color_name, s.storage, s.id as storage_id from phones p " +
+    const sql = "select p.*, pc.image_url, c.color, c.id as color_id, ps.price, ps.ram, c.color as color_name, s.storage, s.id as storage_id from phones p " +
     "left join phone_color pc on p.id=pc.phone_id " +
     "left join colors c on pc.color_id=c.id " +
     "left join phone_storage ps on p.id=ps.phone_id " +
