@@ -25,6 +25,10 @@ const connection = mysql.createConnection({
     database: 'heroku_56d2737ac5ee3be'
 }); 
 
+connection.on('error', function(err) {
+    console.log(err.code);
+  });
+
 // Route
 app.get('/api', (req, res) => {
     res.send('Welcome to the API of phones project')
