@@ -19,10 +19,10 @@ app.use(express.json());
 
 // mysql
 const connection = mysql.createConnection({
-    host: 'us-cdbr-east-04.cleardb.com',
-    user: 'bf270f78f2e78b',
-    password: '959345ed',
-    database: 'heroku_56d2737ac5ee3be',
+    host: 'localhost',
+    user: 'root',
+    password: 'MySQLKey.01',
+    database: 'PhonesDataset',
 }); 
 
 // Route
@@ -32,7 +32,7 @@ app.get('/api', (req, res) => {
 
 // all phones
 app.get('/api/product', (req, res) => {
-    const sql = "select p.*, pc.image_url, c.color, s.storage from phones p " +
+    const sql = "select p.*, pc.image_url, c.id as color_id, c.color as color_name, s.storage, s.id as storage_id from phones p " +
     "left join phone_color pc on p.id=pc.phone_id " +
     "left join colors c on pc.color_id=c.id " +
     "left join phone_storage ps on p.id=ps.phone_id " +
@@ -49,7 +49,7 @@ app.get('/api/product', (req, res) => {
 app.get('/api/product/:id', (req, res) => {
     const { id } = req.params;
 
-    const sql = "select p.*, pc.image_url, c.color, s.storage from phones p " +
+    const sql = "select p.*, pc.image_url, c.color, c.id as color_id, c.color as color_name, s.storage, s.id as storage_id from phones p " +
     "left join phone_color pc on p.id=pc.phone_id " +
     "left join colors c on pc.color_id=c.id " +
     "left join phone_storage ps on p.id=ps.phone_id " +
@@ -67,9 +67,6 @@ app.get('/api/product/:id', (req, res) => {
 })
 app.post('/api/cart', (req, res) => {
     const sql = "INSERT INTO cart set ?";
-
-    console.log("ASDF");
-    console.log("El body es qwer " + JSON.stringify(req.body));
     
     const cartElementObj = {
         user_id: req.body.user || 1,
